@@ -1,5 +1,7 @@
 package com.zipcodewilmington;
 
+import com.sun.org.apache.xerces.internal.xs.ItemPSVI;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -25,7 +27,7 @@ public class StringArrayUtils {
      * @return last element in specified array
      */ // TODO
     public static String getLastElement(String[] array) {
-        return null;
+        return array[array.length - 1];
     }
 
     /**
@@ -33,7 +35,7 @@ public class StringArrayUtils {
      * @return second to last element in specified array
      */ // TODO
     public static String getSecondToLastElement(String[] array) {
-        return null;
+        return array[array.length - 2];
     }
 
     /**
@@ -42,7 +44,14 @@ public class StringArrayUtils {
      * @return true if the array contains the specified `value`
      */ // TODO
     public static boolean contains(String[] array, String value) {
+        for (String input : array) {
+            if (input == value) {
+                return true;
+            }
+        }
+
         return false;
+
     }
 
     /**
@@ -50,17 +59,29 @@ public class StringArrayUtils {
      * @return an array with identical contents in reverse order
      */ // TODO
     public static String[] reverse(String[] array) {
-        return null;
+        for (int i = 0; i < array.length / 2; i++) {
+            String reverseArray = array[i];
+            array[i] = array[array.length - i - 1];
+            array[array.length - i - 1] = reverseArray;
+        }
+
+        return array;
     }
+
 
     /**
      * @param array array of String objects
      * @return true if the order of the array is the same backwards and forwards
      */ // TODO
     public static boolean isPalindromic(String[] array) {
-        return false;
+        for (int i = 0; i <= array.length / 2 && array.length != 0; i++) {
+            if (array[i] != array[array.length - i - 1]) {
+            break;
+        }
+        return true;
     }
-
+        return false;
+}
     /**
      * @param array array of String objects
      * @return true if each letter in the alphabet has been used in the array
