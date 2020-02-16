@@ -2,6 +2,8 @@ package com.zipcodewilmington;
 
 import com.sun.org.apache.xerces.internal.xs.ItemPSVI;
 
+import java.util.ArrayList;
+
 /**
  * Created by leon on 1/29/18.
  */
@@ -76,18 +78,29 @@ public class StringArrayUtils {
     public static boolean isPalindromic(String[] array) {
         for (int i = 0; i <= array.length / 2 && array.length != 0; i++) {
             if (array[i] != array[array.length - i - 1]) {
-            break;
+                break;
+            }
+            return true;
         }
-        return true;
-    }
         return false;
-}
+    }
+
     /**
      * @param array array of String objects
      * @return true if each letter in the alphabet has been used in the array
      */ // TODO
     public static boolean isPangramic(String[] array) {
-        return false;
+        String sentence = String.join("", array).toLowerCase();
+        String[] alphabet = {"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"};
+
+        for (int i = 0; i < 26; i++) {
+            if (sentence.contains(alphabet[i])) {
+            } else {
+                return false;
+            }
+        }
+        return true;
+
     }
 
     /**
@@ -96,7 +109,14 @@ public class StringArrayUtils {
      * @return number of occurrences the specified `value` has occurred
      */ // TODO
     public static int getNumberOfOccurrences(String[] array, String value) {
-        return 0;
+        int result = 0;
+
+        for (int i = 0; i < array.length; i++) {
+            if (array[i].equals(value)) {
+                result++;
+            }
+        }
+        return result;
     }
 
     /**
@@ -105,15 +125,33 @@ public class StringArrayUtils {
      * @return array with identical contents excluding values of `value`
      */ // TODO
     public static String[] removeValue(String[] array, String valueToRemove) {
-        return null;
+        ArrayList<String> arrayMinusValue = new ArrayList<String>();
+
+        for (int i = 0; i < array.length; i++) {
+            if (!array[i].equals(valueToRemove)) {
+                arrayMinusValue.add(array[i]);
+            }
+        }
+        return arrayMinusValue.toArray(new String[arrayMinusValue.size()]);
     }
+
 
     /**
      * @param array array of chars
      * @return array of Strings with consecutive duplicates removes
      */ // TODO
     public static String[] removeConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> excludingRepeats = new ArrayList<String>();
+
+        for (int i = 0; i < array.length; i++) {
+            if (array.length -1 == i) {
+                excludingRepeats.add(array[i]);
+            }
+            else if (!array[i].equals(array[i +1])) {
+                excludingRepeats.add(array[i]);
+            }
+        }
+        return excludingRepeats.toArray(new String[excludingRepeats.size()]);
     }
 
     /**
@@ -121,8 +159,23 @@ public class StringArrayUtils {
      * @return array of Strings with each consecutive duplicate occurrence concatenated as a single string in an array of Strings
      */ // TODO
     public static String[] packConsecutiveDuplicates(String[] array) {
-        return null;
+        ArrayList<String> arrayPacked = new ArrayList<String>();
+        arrayPacked.add(array[0]);
+        int j = 0;
+
+        for (int i = 1; i < array.length; i++) {
+            if (array[i].equals(Character.toString(arrayPacked.get(j).charAt(0)))) {
+                String concat = arrayPacked.get(j) + array[i];
+                arrayPacked.set(j, concat);
+            } else {
+                arrayPacked.add(array[i]);
+                j++;
+            }
+        }
+        return arrayPacked.toArray(new String[arrayPacked.size()]);
     }
-
-
 }
+
+
+
+
